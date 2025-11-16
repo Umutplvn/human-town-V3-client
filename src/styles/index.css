@@ -20,7 +20,7 @@
     bottom: 0;
     left: 0;
     background: linear-gradient(90deg, transparent, #FFD700, transparent);
-    animation: wave 2s infinite ease-in-out;
+     animation: wave 2s infinite ease-in-out; 
   }
   
   @keyframes wave {
