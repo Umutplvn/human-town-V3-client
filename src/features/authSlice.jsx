@@ -27,33 +27,28 @@ initialState: {
       state.loading = false;
       state.error = false;
       state.token = payload?.Token;
-      state.userId = payload?.result?._id;
-      state.email=payload?.result?.email;
-      state.name=payload?.result?.name;
+      state.userId = payload?.user?._id;
+      state.email=payload?.user?.email;
+      state.name=payload?.user?.name;
     },
 
     loginSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
       state.token = payload?.Token;
-      state.userId = payload?.result?._id;
-      state.email = payload?.result?.email;
-      state.avatar=payload?.result?.avatar;
-      state.name=payload?.result?.name;
+      state.userId = payload?.user?._id;
+      state.email = payload?.user?.email;
+      state.avatar=payload?.user?.avatar;
+      state.name=payload?.user?.name;
     },
 
     updateSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
-      state.name=payload?.result?.name;
-      state.userId = payload?.result?._id;
-      state.email = payload?.result?.email;
-      state.avatar=payload?.result?.avatar;
-    },
-
-
-    passwordUpdateSuccess:(state, { payload }) => {
-      state.password=payload?.data?.result?.password
+      state.name=payload?.user?.name;
+      state.userId = payload?.user?._id;
+      state.email = payload?.user?.email;
+      state.avatar=payload?.user?.avatar;
     },
 
 
@@ -75,7 +70,6 @@ export const {
   loginSuccess,
   logoutSuccess,
   registerSuccess,
-  passwordUpdateSuccess,
   updateSuccess
 
 } = authSlice.actions;

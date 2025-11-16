@@ -8,11 +8,11 @@ import Profile from "../pages/Profile"; // Private route örneği
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login/>} />
 
       <Route path="/" element={<PrivateRouter />}>
+      <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile/>} />
       </Route>
     </Routes>

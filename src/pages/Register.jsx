@@ -44,9 +44,7 @@ const Register = () => {
     try {
       await register(info);
     } catch {
-      toast.error("Registration failed. Please try again.", {
-        style: customErrorStyle,
-      });
+      console.log("Registiration failed!");
     } finally {
       setLoading(false);
     }
