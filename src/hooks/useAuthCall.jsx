@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { fetchStart, fetchFail, loginSuccess, logoutSuccess, registerSuccess, updateSuccess, passwordUpdateSuccess } from "../redux/authSlice";
+import { fetchStart, fetchFail, loginSuccess, logoutSuccess, registerSuccess, updateSuccess, passwordUpdateSuccess } from "../features/authSlice";
 import useAxios from "./useAxios";
 
 const useAuthCall = () => {
