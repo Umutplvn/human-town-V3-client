@@ -6,20 +6,21 @@ import {
   ListItemText,
   Divider,
   useMediaQuery,
+  Typography,
 } from "@mui/material";
 
 // ICONS
 import {
   IoChatbubblesOutline,
-  IoSendOutline,
   IoMailUnreadOutline,
   IoDocumentOutline,
   IoWarningOutline,
   IoTrashOutline,
-  IoArchiveOutline, // Yeni Archive ikonu
-  IoSettingsOutline, // Yeni Settings ikonu
+  IoArchiveOutline,
+  IoSettingsOutline,
 } from "react-icons/io5";
 import { BsSendCheck } from "react-icons/bs";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 // CATEGORY DATA WITH ICONS
 const categories = [
@@ -38,17 +39,17 @@ const settings = { id: "Settings", icon: <IoSettingsOutline size={22} /> };
 export default function MailLayout() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
-  const [drawerStep, setDrawerStep] = useState("categories"); // categories | chats | content
-  const [selectedCategory, setSelectedCategory] = useState(null);
+const [drawerStep, setDrawerStep] = useState(
+    isMobile ? "chats" : "categories"
+  );  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedMail, setSelectedMail] = useState(null);
 
-  // Sayfa yüklendiğinde `localStorage`'dan kategoriyi al veya "Chats" olarak ayarla
   useEffect(() => {
     const savedCategory = localStorage.getItem("selectedMailCategory");
     if (savedCategory) {
       setSelectedCategory(savedCategory);
     } else if (selectedCategory === null) {
-      setSelectedCategory("Chats"); // Başlangıçta "Chats" olarak ayarla (case-sensitive)
+      setSelectedCategory("Chats");
     }
   }, []);
 
@@ -69,10 +70,10 @@ export default function MailLayout() {
   };
 
   const handleSelectSettings = () => {
-    setSelectedCategory("Settings"); 
+    setSelectedCategory("Settings");
     localStorage.setItem("selectedMailCategory", "Settings");
-    setSelectedMail(null); 
-    if (isMobile) setDrawerStep("content"); 
+    setSelectedMail(null);
+    if (isMobile) setDrawerStep("content");
   };
 
   // Fake mails
@@ -95,7 +96,7 @@ export default function MailLayout() {
         justifyContent: "space-between", // Categories ve Settings'i ayırmak için
       }}
     >
-      <List >
+      <List>
         {categories.map((item) => (
           <ListItemButton
             key={item.id}
@@ -104,13 +105,13 @@ export default function MailLayout() {
               padding: "0.7rem",
               borderRadius: "15px",
               mx: 2,
-              my:0.8,
+              my: 0.8,
               justifyContent: "center",
               backgroundColor:
-                selectedCategory === item.id ? "#ddd" : "transparent", 
+                selectedCategory === item.id ? "#ddd" : "transparent",
               color: selectedCategory === item.id ? "#000" : "#000",
               "&:hover": {
-                backgroundColor: "#eee", 
+                backgroundColor: "#eee",
               },
             }}
           >
@@ -144,47 +145,52 @@ export default function MailLayout() {
     </Box>
   );
 
-  // CHAT LIST COMPONENT (Aynı kaldı)
   const ChatList = (
     <Box
       sx={{
-        width: chatListWidth,
+        width: isMobile ? "100%" : chatListWidth,
         height: "100%",
         borderRight: "1px solid #ddd",
       }}
     >
-      {/* MOBILE BACK BUTTON */}
       {isMobile && (
         <Box
           sx={{
             padding: "1rem",
-            fontSize: "1.2rem",
+            fontSize: "1.3rem",
             fontWeight: "bold",
             cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
           onClick={() => {
             setDrawerStep("categories");
             setSelectedMail(null);
-          }} // selectedCategory'yi sıfırlamıyoruz ki `localStorage`'dan gelen kalsın
+          }}
         >
-          ← Categories
+          <ArrowBackIosNewIcon sx={{ fontSize: "1.2rem" }} />
+
+          <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            {selectedCategory}
+          </Typography>
         </Box>
       )}
 
       {!isMobile && (
-        <Box sx={{ p: 2, fontWeight: "bold", fontSize: "1.1rem" }}>
+        <Box sx={{ p: 2, fontWeight: "bold", fontSize: "1.2rem" }}>
           {selectedCategory}
         </Box>
       )}
 
       <Divider />
+      
       <List>
         {mails.map((mail) => (
           <ListItemButton
             key={mail.id}
             onClick={() => handleSelectMail(mail)}
             sx={{
-              my: 1,
               backgroundColor: "#fff",
               borderRadius: "8px",
               mx: 1,
@@ -199,20 +205,32 @@ export default function MailLayout() {
 
   // MAIL CONTENT COMPONENT
   const MailContent = (
-    <Box sx={{ p: 3, width: "100%", height: "100%", overflow: "auto" }}>
+    <Box sx={{ width: "100%", height: "100%", overflow: "auto" }}>
       {/* MOBILE BACK BUTTON */}
       {isMobile && (
-        <Box
+        <>
+              <Box
           sx={{
-            fontSize: "1.5rem",
+            padding: "1rem",
+            fontSize: "1.3rem",
             fontWeight: "bold",
             cursor: "pointer",
-            mb: 2,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
-          onClick={() => setDrawerStep("chats")}
+          onClick={() => {
+            setDrawerStep("categories");
+            setSelectedMail(null);
+          }}
         >
-          ← Chats
+          <ArrowBackIosNewIcon sx={{ fontSize: "1.2rem" }} />
+
+          <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            {selectedCategory}
+          </Typography>
         </Box>
+        </>
       )}
 
       {selectedCategory === "Settings" ? (
@@ -221,13 +239,20 @@ export default function MailLayout() {
         </Box>
       ) : selectedMail ? (
         <>
-          <Box sx={{ fontSize: "1.4rem", fontWeight: "bold", mb: 2 }}>
+          <Box
+            sx={{
+              fontSize: "1rem",
+              fontWeight: "bold",
+              mb: 1,
+              padding: "0 1rem",
+            }}
+          >
             {selectedMail.title}
           </Box>
-          <Box sx={{ lineHeight: 1.6 }}>{selectedMail.body}</Box>
+          <Box sx={{ padding: "0 1rem", fontSize:"0.9rem" }}>{selectedMail.body}</Box>
         </>
       ) : (
-        <Box sx={{ fontSize: "1.2rem", color: "#666" }}>
+        <Box sx={{ fontSize: "1.2rem", color: "#666", padding:"1rem" }}>
           {selectedCategory} klasöründen mail seçiniz…
         </Box>
       )}
