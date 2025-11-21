@@ -7,6 +7,13 @@
     font-style: bold;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "SF Pro Display",
+    "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .page-container {
     position: relative;
     overflow: hidden;
