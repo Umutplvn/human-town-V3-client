@@ -11,21 +11,21 @@ import {
 
 import {
   IoChatbubblesOutline,
-  IoMailUnreadOutline,
   IoDocumentOutline,
   IoWarningOutline,
   IoTrashOutline,
   IoArchiveOutline,
   IoSettingsOutline,
 } from "react-icons/io5";
-import { BsSendCheck } from "react-icons/bs";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { GoInbox } from "react-icons/go";
+import { FiSend } from "react-icons/fi";
 
 // CATEGORY DATA
 const categories = [
   { id: "Chats", icon: <IoChatbubblesOutline size={22} /> },
-  { id: "Inbox", icon: <IoMailUnreadOutline size={22} /> },
-  { id: "Sent", icon: <BsSendCheck size={22} /> },
+  { id: "Inbox", icon: <GoInbox size={22} /> },
+  { id: "Sent", icon: <FiSend size={22} /> },
   { id: "Drafts", icon: <IoDocumentOutline size={22} /> },
   { id: "Trash", icon: <IoTrashOutline size={22} /> },
   { id: "Spam", icon: <IoWarningOutline size={22} /> },
@@ -81,6 +81,19 @@ export default function MailLayout() {
         alignItems: "center",
       }}
     >
+           {isMobile && <Typography
+        sx={{
+          width:"100%",
+          padding: "1rem 0 1.5rem 2rem",
+          fontSize: "1.5rem",
+          fontWeight: "600",
+          fontFamily: `"SF Pro Display", -apple-system, BlinkMacSystemFont, 'Inter', sans-serif`,
+          
+        }}
+      >
+        Mailboxes
+      </Typography> 
+      }
       <List
         sx={{
           width: isMobile ? "85%" : "80%",
@@ -103,6 +116,7 @@ export default function MailLayout() {
               display: "flex",
               justifyContent: isMobile? "flex-start":"center",
               gap: "1rem",
+              color:"#0A84FF",
               padding: "1rem",
               mt:isMobile?"0":"0.3rem",
               borderRadius: isMobile ? "0" : "1rem",
@@ -116,7 +130,7 @@ export default function MailLayout() {
           >
             {c.icon}
             {isMobile && (
-              <Typography sx={{ fontSize: "1rem", fontWeight: 500 }}>
+              <Typography sx={{ fontSize: "1rem", fontWeight: 500, color:"black" }}>
                 {c.id}
               </Typography>
             )}
@@ -138,6 +152,7 @@ export default function MailLayout() {
           padding: isMobile ? 0 : 1,
           cursor: "pointer",
           borderRadius:"2rem"
+          
         }}
       >
         <ListItemButton
@@ -151,11 +166,12 @@ export default function MailLayout() {
             gap: "1rem",
             justifyContent: "flex-start",
             "&:hover": { backgroundColor: "#ececee" },
+            color:"#0A84FF"
           }}
         >
           {settings.icon}
           {isMobile && (
-            <Typography sx={{ fontSize: "1rem", fontWeight: 500 }}>
+            <Typography sx={{ fontSize: "1rem", fontWeight: 500, color:"black" }}>
               Settings
             </Typography>
           )}
@@ -173,7 +189,7 @@ export default function MailLayout() {
       sx={{
         width: "100%",
         height: "100%",
-        borderRight: !isMobile && "1px solid #ddd",
+        borderRight: !isMobile && "1px solid #f3f3f7",
         backgroundColor: isMobile ? "#f3f3f7" : "white",
       }}
     >
@@ -294,18 +310,6 @@ export default function MailLayout() {
         backgroundColor: "#f3f3f7",
       }}
     >
-      <Typography
-        sx={{
-          padding: "1rem 2rem",
-          paddingBottom: "0.5rem",
-          fontSize: "1.5rem",
-          fontWeight: "600",
-          fontFamily: `"SF Pro Display", -apple-system, BlinkMacSystemFont, 'Inter', sans-serif`,
-        }}
-      >
-        Mailboxes
-      </Typography>
-
       {drawerStep === "categories" && <CategoryList />}
       {drawerStep === "chats" && <ChatList />}
       {drawerStep === "content" && <MailContent />}
