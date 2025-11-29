@@ -31,6 +31,7 @@ const useAuthCall = () => {
       const res = await axiosPublic.post("/api/auth/login", body);
       dispatch(loginSuccess(res.data));
       navigate("/");
+      console.log(res.data);
       return res.data;
     } catch (err) {
       dispatch(fetchFail());

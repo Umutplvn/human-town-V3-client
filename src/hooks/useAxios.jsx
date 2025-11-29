@@ -8,22 +8,22 @@ const useAxios = () => {
 
   const axiosWithToken = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization:token },
   });
 
   const axiosPublic = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
   });
 
-  axiosWithToken.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error?.response?.status === 401) {
-        dispatch(logoutSuccess());
-      }
-      return Promise.reject(error);
-    }
-  );
+  // axiosWithToken.interceptors.response.use(
+  //   (response) => response,
+  //   (error) => {
+  //     if (error?.response?.status === 401) {
+  //       dispatch(logoutSuccess());
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   return { axiosWithToken, axiosPublic };
 };

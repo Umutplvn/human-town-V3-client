@@ -20,6 +20,7 @@ import {
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { GoInbox } from "react-icons/go";
 import { FiSend } from "react-icons/fi";
+import useDataCall from "../hooks/useDataCall";
 
 // CATEGORY DATA
 const categories = [
@@ -39,11 +40,14 @@ export default function MailLayout() {
   const [drawerStep, setDrawerStep] = useState("categories");
   const [selectedCategory, setSelectedCategory] = useState("Chats");
   const [selectedMail, setSelectedMail] = useState(null);
+const {getMails}= useDataCall()
 
   useEffect(() => {
     const saved = localStorage.getItem("selectedMailCategory");
     if (saved) setSelectedCategory(saved);
   }, []);
+
+  getMails()
 
   const mails = [1, 2, 3, 4].map((id) => ({
     id,

@@ -37,8 +37,19 @@ export const mailSlice = createSlice({
         m._id === mail._id ? mail : m
       );
     },
+    getMailsSuccess: (state, { payload }) => {
+    
+    },
 
-    logoutAllData: (state) => {
+        getThreadSuccess: (state, { payload }) => {
+     
+    },
+
+    getSingleMailSuccess: (state, { payload }) => {
+    
+    },
+
+    logoutDataSuccess: (state) => {
       state.loading = false;
       state.error = false;
       state.inbox = [];
@@ -57,6 +68,11 @@ export const {
   setFolderMails,
   updateMailInFolder,
   logoutAllData,
+  getMailsSuccess,
+  getSingleMailSuccess,
+  getThreadSuccess,
+  logoutDataSuccess
+
 } = mailSlice.actions;
 
 export default mailSlice.reducer;

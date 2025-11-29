@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 
 const PrivateRouter = () => {
     const { userId } = useSelector((state) => state.auth);
-
     if (!userId) {
         return (
             <div style={{ padding: '2rem', textAlign: 'center' }}>

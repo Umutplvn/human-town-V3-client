@@ -32,16 +32,15 @@ initialState: {
       state.name=payload?.user?.name;
     },
 
-    loginSuccess: (state, { payload }) => {
-      state.loading = false;
-      state.error = false;
-      state.token = payload?.Token;
-      state.userId = payload?.user?._id;
-      state.email = payload?.user?.email;
-      state.avatar=payload?.user?.avatar;
-      state.name=payload?.user?.name;
-    },
-
+loginSuccess: (state, { payload }) => {
+  state.loading = false;
+  state.error = false;
+  state.token = payload?.Token;
+  state.userId = payload?.user?._id;
+  state.email = payload?.user?.email;
+  state.avatar = payload?.user?.avatar;
+  state.name = payload?.user?.name;
+},
     updateSuccess: (state, { payload }) => {
       state.loading = false;
       state.error = false;
